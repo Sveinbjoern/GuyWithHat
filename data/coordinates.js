@@ -1,6 +1,5 @@
 //FILE FOR COORDINATES TO CONTROL MOVEMENT
 
-
 sunMovement = 
 [
     [ 98 ,  606 ]

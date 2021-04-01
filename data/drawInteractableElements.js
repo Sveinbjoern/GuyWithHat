@@ -2,68 +2,63 @@
 
 function drawCanyon(){
  
-   INTER_EL.currentDisplayCanyons[0] = INTER_EL.findPotitionInArray(   INTER_EL.CANYONS, 
-                                                            INTER_EL.currentDisplayCanyons[0],
+   optimization.currentDisplayCanyons[0] = optimization.findPotitionInArrayOBJ(   INTER_EL.CANYONS, 
+                                                            optimization.currentDisplayCanyons[0],
                                                             INTER_EL.CANYON_RANGE,
                                                             charLogics.scroll)
     
       // console.log("INTER_EL.currentDisplayCanyons",INTER_EL.currentDisplayCanyons)
-   if (INTER_EL.currentDisplayCanyons[0] > INTER_EL.CANYON_RANGE[1] )
+   if (optimization.currentDisplayCanyons[0] > INTER_EL.CANYON_RANGE[1] )
    {
-      INTER_EL.currentDisplayCanyons[0] = INTER_EL.CANYON_RANGE[1];
+      optimization.currentDisplayCanyons[0] = INTER_EL.CANYON_RANGE[1];
       return;
-   } else if (INTER_EL.currentDisplayCanyons[0] < INTER_EL.CANYON_RANGE[0])
+   } else if (optimization.currentDisplayCanyons[0] < INTER_EL.CANYON_RANGE[0])
    {
-      INTER_EL.currentDisplayCanyons[0] = INTER_EL.CANYON_RANGE[0];
+      optimization.currentDisplayCanyons[0] = INTER_EL.CANYON_RANGE[0];
    }
    
-   INTER_EL.currentDisplayCanyons[1] = INTER_EL.CANYONS[INTER_EL.currentDisplayCanyons[0]].DISPLAY_INDEX;
+   optimization.currentDisplayCanyons[1] = INTER_EL.CANYONS[optimization.currentDisplayCanyons[0]].DISPLAY_INDEX;
    // console.log("INTER_EL.currentDisplayCanyons",INTER_EL.currentDisplayCanyons);
-   while  (INTER_EL.CANYONS[INTER_EL.currentDisplayCanyons[1]].LEFT > charLogics.scroll[1] ) 
+   while  (INTER_EL.CANYONS[optimization.currentDisplayCanyons[1]].LEFT > charLogics.scroll[1] ) 
    {
       // console.log("runnning")
-      INTER_EL.currentDisplayCanyons[1]--;
-      if (INTER_EL.currentDisplayCanyons[1] < 0)
+      optimization.currentDisplayCanyons[1]--;
+      if (optimization.currentDisplayCanyons[1] < 0)
       {return;}
    }
 
-   if (INTER_EL.currentDisplayCanyons[0] > INTER_EL.currentDisplayCanyons[1])
+   if (optimization.currentDisplayCanyons[0] > optimization.currentDisplayCanyons[1])
    {return}
    // console.log("INTER_EL.currentDisplayCanyons",INTER_EL.currentDisplayCanyons)
-      for ( i = INTER_EL.currentDisplayCanyons[0]; 
-            i <= INTER_EL.currentDisplayCanyons[1]; i ++)    
+   for ( i = optimization.currentDisplayCanyons[0]; 
+            i <= optimization.currentDisplayCanyons[1]; i ++)    
    {
  
-    
- 
-  translate(INTER_EL.CANYONS[i].X -charLogics.scroll[0] , INTER_EL.CANYON_Y)
-  scale (1,1)
-  noStroke(); 
-   fill(0);
+      translate(INTER_EL.CANYONS[i].X - charLogics.scroll[0] , INTER_EL.CANYON_Y);
 
- 
-    
-strokeWeight( 2 );
+      scale (1,1);
+      noStroke(); 
+      fill(0);
+      strokeWeight( 2 );
 
-   beginShape();
-  vertex( -73 ,  -1 );
-  vertex( -67 ,  9 );
-  vertex( -66 ,  25 );
-  vertex( -63 ,  39 );
-  vertex( -53 ,  72 );
-  vertex( 52 ,  73 );
-  vertex( 62 ,  35 );
-  vertex( 69 ,  18 ); 
-  vertex( 72 ,  -1 );
-   endShape(CLOSE);
-  
- 
-   translate(-(INTER_EL.CANYONS[i].X -charLogics.scroll[0]) , -INTER_EL.CANYON_Y)
-  
+      beginShape();
+      vertex( -73 ,  -1 );
+      vertex( -67 ,  9 );
+      vertex( -66 ,  25 );
+      vertex( -63 ,  39 );
+      vertex( -53 ,  72 );
+      vertex( 52 ,  73 );
+      vertex( 62 ,  35 );
+      vertex( 69 ,  18 ); 
+      vertex( 72 ,  -1 );
+      endShape(CLOSE);
+   
+      translate(-(INTER_EL.CANYONS[i].X -charLogics.scroll[0]) , -INTER_EL.CANYON_Y)
+   
    }
 
-   fill(255,0,0);
-   stroke(0);
+   fill(0);
+   stroke(255,0,0);
 }
 
 
@@ -152,8 +147,6 @@ function drawFlagpole ()
       }
       INTER_EL.flagStart ++;
    }
-
-   // console.log (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.flagCounter++] *3);
    pop(); 
 }
 
@@ -167,156 +160,138 @@ function drawDog ()
 {
    push();
    translate( INTER_EL.DOG.x -charLogics.scroll[0] , INTER_EL.DOG.y );
-scale(INTER_EL.DOG.currentDirection,1)
-stroke (0)
+   scale(INTER_EL.DOG.currentDirection,1)
+   stroke (0)
 
-//FRONTLEG BEHIND
-translate(  316 -337 , 470 -487 );
-rotate (-1*GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-strokeWeight( 2 );
-fill( drawSoft.colorWheelFull[29 ][186] );
-beginShape();
-vertex( -4 ,  -1 );
-vertex( -4 ,  18 );
-vertex( 4 ,  17 );
-vertex( 3 ,  -4 );
-endShape();
-rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-translate(  -(316 -337) , -(470 -487) );
+   //FRONTLEG BEHIND
+   translate(  21 , -19 );
+   rotate (-1*GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   strokeWeight( 2 );
+   fill( COLOR.colorWheelFull[29 ][186] );
+   beginShape();
+   vertex( -4 ,  -1 );
+   vertex( -4 ,  18 );
+   vertex( 4 ,  17 );
+   vertex( 3 ,  -4 );
+   endShape();
+   rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   translate(  21 , 21 );
 
-//BACKLEG BEHIND
-translate( 344 -337, 470 -487 );
-rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-strokeWeight( 2 );
-
-beginShape();
-vertex( -6 ,  -3 );
-vertex( 2 ,  10 );
-vertex( -3 ,  18 );
-vertex( 6 ,  18 );
-vertex( 10 ,  5 );
-vertex( 2 ,  -6 );
-endShape();
-rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-translate( -(344 -337), -(470 -487) );
-
-
-
-
-
-
-
-
-
-//BODY
+   //BACKLEG BEHIND
+   translate( 8, -21 );
+   rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
    strokeWeight( 2 );
 
-beginShape();
-vertex( -24 ,  -29 );
-vertex( -26 ,  -12 );
-vertex( 12 ,  -11 );
-vertex( 14 ,  -23 );
-vertex( 24 ,  -17 );
-vertex( 27 ,  -22 );
-vertex( 13 ,  -30 );
-endShape(CLOSE);
+   beginShape();
+   vertex( -6 ,  -3 );
+   vertex( 2 ,  10 );
+   vertex( -3 ,  18 );
+   vertex( 6 ,  18 );
+   vertex( 10 ,  5 );
+   vertex( 2 ,  -6 );
+   endShape();
+   rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   translate( -8, +21 );
 
-//HEAD
-translate( 316 -337, 466 -487);
-rotate (INTER_EL.DOG.headPotition);
-strokeWeight( 2 );
+   //BODY
+   strokeWeight( 2 );
 
-beginShape();
-vertex( 1 ,  -6 );
-vertex( -4 ,  -16 );
-vertex( -16 ,  -13 );
-vertex( -20 ,  -6 );
-vertex( -28 ,  -2 );
-vertex( -24 ,  1 );
-vertex( -12 ,  -2 );
-vertex( -1 ,  8 );
+   beginShape();
+   vertex( -24 ,  -29 );
+   vertex( -26 ,  -12 );
+   vertex( 12 ,  -11 );
+   vertex( 14 ,  -23 );
+   vertex( 24 ,  -17 );
+   vertex( 27 ,  -22 );
+   vertex( 13 ,  -30 );
+   endShape(CLOSE);
 
-endShape();
+   //HEAD
+   translate( -21, -21);
+   rotate (INTER_EL.DOG.headPotition);
+   strokeWeight( 2 );
 
+   beginShape();
+   vertex( 1 ,  -6 );
+   vertex( -4 ,  -16 );
+   vertex( -16 ,  -13 );
+   vertex( -20 ,  -6 );
+   vertex( -28 ,  -2 );
+   vertex( -24 ,  1 );
+   vertex( -12 ,  -2 );
+   vertex( -1 ,  8 );
 
-// EAR
-// translate( 33 , 32 );
-strokeWeight( 2 );
-
-beginShape();
-vertex( 447 -33 -448 - (316-337),  421-32 -422- (466-487));
-//wolf
-// vertex( 448 -33 -448 - (316-337)+2,  428-32 -422- (466-487)-18);
-
-
-// dog
-vertex( 448 -33 -448 - (316-337),  428-32 -422- (466-487));
-vertex( 454 -33 -448 - (316-337),  427-32 -422- (466-487));
-
-vertex( 455 -33 -448 - (316-337),  419-32 -422- (466-487));
-endShape();
-
-// EYE
-// translate( 480 , 270 );
-
-strokeWeight( 3 );
-fill( 120  , 120  , 120  , 255 );
-beginShape(POINTS);
-vertex( -179 +480 -337 -(316 -337) , 187+270 -487 -(466 -487));
- endShape();
-
- fill( drawSoft.colorWheelFull[29 ][186] );
-//MOUTH
-translate( 303 -337 -(316 -337) , 466 -487-(466 -487) );
-rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogMouthIndex]);
-strokeWeight( 2 );
-
-beginShape();
-vertex( -1 ,  -2 );
-vertex( -12 ,  1 );
-vertex( -9 ,  5 );
-vertex( 4 ,  1 );
-endShape();
-rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogMouthIndex]);
-
-translate( -(303 -337 -(316 -337)), -(466 -487-(466 -487)));
-rotate (-INTER_EL.DOG.headPotition);
-translate( -(316 -337), -(466 -487));
-
-//FRONTLEG FRONT
-translate(  316 -337 , 470 -487 );
-rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-strokeWeight( 2 );
-
-beginShape();
-vertex( -4 ,  -1 );
-vertex( -4 ,  18 );
-vertex( 4 ,  17 );
-vertex( 3 ,  -4 );
-endShape();
-rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-translate(  -(316 -337) , -(470 -487) );
-
-//BACKLEG FRONT
-translate( 344 -337, 470 -487 );
-rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-strokeWeight( 2 );
-
-beginShape();
-vertex( -6 ,  -3 );
-vertex( 2 ,  10 );
-vertex( -3 ,  18 );
-vertex( 6 ,  18 );
-vertex( 10 ,  5 );
-vertex( 2 ,  -6 );
-endShape();
-rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
-translate( -(344 -337), -(470 -487) );
+   endShape();
 
 
+   // EAR 316 -337 = -21 466-487= -21
+   
+   strokeWeight( 2 );
 
+   beginShape();
+   vertex(  -13,  -12);
+   vertex(  -12, -5);
+   vertex( -6,  -6);
+   vertex( -5,  -14);
+   endShape();
 
-pop();
+   // EYE
+   // translate( 480 , 270 );
+
+   strokeWeight( 3 );
+   fill( 120  , 120  , 120  , 255 );
+   beginShape(POINTS);
+   vertex( -15 , -9);
+   endShape();
+
+   fill( COLOR.colorWheelFull[29 ][186] );
+   //MOUTH
+   translate( -13 , 0 );
+   rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogMouthIndex]);
+   strokeWeight( 2 );
+
+   beginShape();
+   vertex( -1 ,  -2 );
+   vertex( -12 ,  1 );
+   vertex( -9 ,  5 );
+   vertex( 4 ,  1 );
+   endShape();
+   rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogMouthIndex]);
+
+   translate( +13, 0);
+   rotate (-INTER_EL.DOG.headPotition);
+   translate( -(316 -337), -(466 -487));
+
+   //FRONTLEG FRONT
+   translate(  316 -337 , 470 -487 );
+   rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   strokeWeight( 2 );
+
+   beginShape();
+   vertex( -4 ,  -1 );
+   vertex( -4 ,  18 );
+   vertex( 4 ,  17 );
+   vertex( 3 ,  -4 );
+   endShape();
+   rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   translate(  -(316 -337) , -(470 -487) );
+
+   //BACKLEG FRONT
+   translate( 344 -337, 470 -487 );
+   rotate (-GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   strokeWeight( 2 );
+
+   beginShape();
+   vertex( -6 ,  -3 );
+   vertex( 2 ,  10 );
+   vertex( -3 ,  18 );
+   vertex( 6 ,  18 );
+   vertex( 10 ,  5 );
+   vertex( 2 ,  -6 );
+   endShape();
+   rotate (GAME_PROPS.SIN_128X2_ARRAY[INTER_EL.DOG.dogWalkIndex]);
+   translate( -(344 -337), -(470 -487) );
+   pop();
 
 }
 
@@ -325,19 +300,17 @@ pop();
 function drawBirds (bird) 
 {
    push();
-   // console.log("drawbird" , GAME_PROPS.SIN_128X2_ARRAY[bird.sinCounter])
-   // console.log("drawbird" , bird)
    
    translate( bird.x -charLogics.scroll[0] , bird.y ); 
    if (bird.hit)
    {
-      rotate (TEST_SIN )
+      rotate (bird.sinCounter *bird.direction)
    }
    scale(bird.direction, 1);
    scale(bird.scale);
    stroke (70);
    strokeWeight( 2 );
-   fill( drawSoft.colorWheelFull[  115  ][  237  ]);
+   fill( COLOR.colorWheelFull[  115  ][  237  ]);
    beginShape();
    vertex( -89 ,  -20 );
    vertex( 15 ,  -22 );
@@ -355,7 +328,7 @@ function drawBirds (bird)
    endShape(CLOSE); 
    
    strokeWeight( 1 );
-   fill( drawSoft.colorWheelFull[  27  ][ 94  ]);
+   fill( COLOR.colorWheelFull[  27  ][ 94  ]);
    beginShape();
    vertex( 75 ,  -24 );
    vertex( 76 ,  -24 );
@@ -365,7 +338,7 @@ function drawBirds (bird)
    endShape();
    
    strokeWeight( 4 );
-   stroke( drawSoft.colorWheelFull[  229   ][ 159  ]);
+   stroke( COLOR.colorWheelFull[  229   ][ 159  ]);
    
    beginShape(LINES);
    vertex( 64 ,  -25 );
@@ -374,12 +347,12 @@ function drawBirds (bird)
    
    if (!bird.hit)
    {
-      scale (1, TEST_SIN)
+      scale (1, GAME_PROPS.SIN_128X2_ARRAY[bird.sinCounter])
    }
    
    strokeWeight( 2 );
    stroke( 120  , 120  , 120  , 255 );
-   fill( drawSoft.colorWheelFull[  115  ][  237  ]);
+   fill( COLOR.colorWheelFull[  115  ][  237  ]);
    beginShape();
    vertex( -24 ,  -3 );
    vertex( -40 ,  127 );
@@ -390,38 +363,27 @@ function drawBirds (bird)
    
    if (!bird.hit)
    {
-      scale (1, 1/ TEST_SIN)
+      scale (1, 1/ GAME_PROPS.SIN_128X2_ARRAY[bird.sinCounter])
    }
    
-   
-   
-   // translate( 758 , 429 );
    strokeWeight( 11 );
-   stroke(drawSoft.colorWheelFull[  229  ][  159  ]);
+   stroke(COLOR.colorWheelFull[  229  ][  159  ]);
    beginShape(POINTS);
    vertex( -177 +177 +57,  -133 +133 -23);
    endShape();
 
-   strokeWeight(15);
-   stroke(255);
-   point(0,0);
-   noStroke();
-   // rect (-100,-30,200,35) // For calculating hitbox
+   stroke(0);
+  
    scale( 1/bird.scale)
    scale( bird.direction,  1);
    if (bird.hit)
    {
-   rotate(-TEST_SIN)
+   rotate(-(bird.sinCounter * bird.direction))
    }
    translate( - bird.x + charLogics.scroll[0] , -bird.y );
    strokeWeight (2);
    
+ 
    pop();
    
-   
 }
-function drawThings () 
-{
-
-}
-//How many enemies. When to draw enemies. CurrentCanyon for scroll and scroll + width?

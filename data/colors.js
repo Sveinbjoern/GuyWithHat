@@ -1,16 +1,12 @@
-
+const COLOR = 
+{
+    colorWheelFull: [], 
+}
 
 function colours () 
 {
 
-    
-    
-    
-    
-    
-    
 
-    
     // PREDETERMINED COLORS 
     ForestGreenC = color(34, 139,  34); 
     TanC	= color(210, 180 ,140); 
@@ -29,7 +25,8 @@ function colours ()
     YellowHouseC	=	color(200 , 200 , 60); 
     GroundC = lerpColor (TanC, PeruC,0.5)
     
-    colorWheelMain = [
+    colorWheelMain = 
+    [
       [255, 0, 0]
       ,[255, 6, 0]
       ,[255, 13, 0]
@@ -263,7 +260,6 @@ function colours ()
       ,[255, 0, 64]
       ,[255, 0, 57]
       ,[255, 0, 51]
-
       ,[255, 0, 45]
       ,[255, 0, 38]
       ,[255, 0, 32]
@@ -271,9 +267,6 @@ function colours ()
       ,[255, 0, 19]
       ,[255, 0, 13]
       ,[255, 0, 6]
-];
-    
-    
-   
+    ];
+  
 }
-

@@ -1,8 +1,14 @@
-// draw the character in one of four states. 
-// Standing Walking Left/Right Jumping Up/Left/Right 
-// Update position code
+/*
 
+characterController contains three objects:
 
+GAME_CHAR - constants related to main character
+gameChar variable related to main character and hitboxes for character and hammer
+    and functions related to hammer throw
+charLogics - funtions related to updating movement and accelaration and 
+    contstraing main character also has the scroll, sceenshot iteration and keypressed values
+
+*/
 
 
 ////////////////////////////////////////////////////////////////
@@ -17,7 +23,7 @@ const GAME_CHAR =
     JUMP_MIN : -4,
     JUMP_INCREMENT : -0.5,
 
-    JUMP_COMP_ARRAY: [], // Values for compressing and expanding the charcter for charging jump
+    JUMP_COMP_ARRAY: [], 
     JUMP_EXP_ARRAY: [],
     JUMP_MAX_COMP: 0.8,
     JUMP_MAX_EXP: 1.1,
@@ -86,7 +92,7 @@ const GAME_CHAR =
     STARTING_LIVES : 4,
 
     //HITBOX CONSTANTS
-    BIRD_LIMITS : [],
+    BIRD_LIMITS : [], //set in setup of levelController INTER_EL
 }
  
 
@@ -115,20 +121,18 @@ const gameChar =
     //UI and Pickable items variables
     hasWon: false,
     gameOver : false,
-    winCondition: false,
     infoText : false,
     lives : 4, 
     hammerPickedUp : false,
     hammerRotationStanding: 0,
 
     hammerRotationSpeed: 0.03,
-    
     hammerChargeCounter: 0,
     hammerChargeRotation: 0, 
     numberOfHammers: 0,
     hammers: [],
-    hammerTextCounter : 150,
-    hammerLeftTest: false,
+    hammerTextCounter : 850,
+    hammerLeftTest: false, 
     hammerRightTest: false,
     
 
@@ -158,12 +162,8 @@ const gameChar =
         
         GAME_CHAR.JUMP_COMP_ARRAY = GAME_PROPS.easedArray( GAME_CHAR.JUMP_COMP_OBJECT );
         GAME_CHAR.JUMP_EXP_ARRAY = GAME_PROPS.easedArray( GAME_CHAR.JUMP_EXP_OBJECT );
-       
         GAME_CHAR.HAMMER_CHARGE_ARRAY = GAME_PROPS.easedArray( GAME_CHAR.HAMMER_CHARGE_OBJECT );
         GAME_CHAR.HAMMER_CHARGE_ROTATION_ARR =  GAME_PROPS.easedArray( GAME_CHAR.HAMMER_CHARGE_ROTATION_OBJ );
-        
-
-
         GAME_CHAR.JUMP_COMP_LAST_INDEX = GAME_CHAR.JUMP_COMP_ARRAY.length -1;
     
 
@@ -173,24 +173,10 @@ const gameChar =
     throwHammer: function ()
     {
         
-
-        // this.hammers.push ( {
-        //     X: gameChar.worldX,
-        //     Y: gameChar.y -40,
-        //     rotationSpeed: 0.01,
-        //     rotation: 0,
-        //     direction: gameChar.currentDirection,
-        //     speedX: 0,
-        //     speedY: 0,
-        //     // speedVector: createVector (currentdirection*gameChar gameChar.speedX, );
-
-        // })
-           // DO STUFF
         if (this.numberOfHammers > this.hammers.length)
         {
             this.hammers.push( factoryHammer());
         }
-
 
         function factoryHammer ()
         {
@@ -209,10 +195,6 @@ const gameChar =
                 //hitbox
                 currentHitBoxIndexRight: (floor (INTER_EL.birdsGoingRight.length/2)),
                 currentHitBoxIndexLeft: (floor (INTER_EL.birdsGoingLeft.length/2)),
-
-
-                // speedVector: createVector (currentdirection*gameChar gameChar.speedX, );
-
             }
             return hammer;
         }
@@ -220,7 +202,6 @@ const gameChar =
 
     calculateHitbox: function ()
     {
-        // hitBox
         let hitBox = 
         {
             left :  gameChar.worldX -18,
@@ -250,25 +231,23 @@ const gameChar =
 
         let posssibleMatches = []
         let adjustedIndex = 0;
-        // console.log("regular hitbox",birdDifference)
+        
+        
         if (maxIndexLeft +1) 
         {   
             startIndexLeft = min (startIndexLeft , maxIndexLeft)
-            // console.log("if statement hitbox Left")
+            
             for (i = startIndexLeft;;)
             { 
-                // console.log("hitbox while Left",  INTER_EL.birdsGoingLeft[i].x <=  birdDifference[0])
-                // console.log(i)
+                
                 if (INTER_EL.birdsGoingLeft[i].x <=  birdDifference.left)
                 {
                     i++; 
-                    // console.log("first if First value Left"); 
                     if (i > maxIndexLeft) { break;} 
                     trueCheck = false; //true check here means no one to the left
                 }
                 else if (trueCheck)
                 {
-                    // console.log("second if First value Left")
                     searchIndexLeft[0] =i;
                     i--; 
                     if (i < 0 ) 
@@ -276,20 +255,15 @@ const gameChar =
                     
                 }  else
                 {
-                    // console.log("getting values for SearchIndexLeft")
                     searchIndexLeft[0] = i;
                     break;
                 } 
-                // console.log(searchIndexRight)
-                // console.log(++timesRun)
             }
-            // // console.log("searchLeft after fist check",searchIndexLeft)
+            
             if (searchIndexLeft.length == 1)
+            {
                 for (i = searchIndexLeft[0];;)
-                { 
-                    // console.log(searchIndexLeft)
-
-                    // console.log("hitbox while Left Second")
+                {
                     if (INTER_EL.birdsGoingLeft[i].x >=  birdDifference.right)
                     {
                         break;
@@ -304,33 +278,19 @@ const gameChar =
                         
                     } 
                 } 
-
-
-               
-                // console.log(gameChar.lastBirdIndexLeft);
+            }   
         }
 
-
-    
-
-         
-
-        // console.log("XrangeLeft",searchIndexLeft)
-
-        
         if (maxIndexRight +1)
         {   
             trueCheck = true;
-            // // console.log("if statement hitbox Right")
-            
             startIndexRight = min (startIndexRight , maxIndexRight)
+
             for (i = startIndexRight;;)
             { 
-                // console.log("hitbox while Right")
                 if (INTER_EL.birdsGoingRight[i].x >=  birdDifference.right)
                 {
                     i++; 
-                    // console.log("first if First value Left"); 
                     if (i > maxIndexRight) { break;} 
                     trueCheck = false; //true check here means no one to the right
                 }    
@@ -348,14 +308,11 @@ const gameChar =
                     
                     break;
                 }
-                // console.log(searchIndexRight)
             }
             if (searchIndexRight.length == 1)
+            {
                 for (i = searchIndexRight[0];;)
                 { 
-                    // console.log(searchIndexRight)
-                    // console.log("hitbox while Right Second")
-                    // console.log(i)
                     if (INTER_EL.birdsGoingRight[i].x <=  birdDifference.left)
                     { break;} 
                     else  
@@ -366,20 +323,14 @@ const gameChar =
                         {
                             break;
                         }
-                    } 
-                    // console.log(searchIndexRight)
-                    // console.log(++timesRun)
-                    
+                    }
                 } 
+            }
         }
         
 
         gameChar.lastBirdIndexLeft = searchIndexLeft[0] ||  gameChar.lastBirdIndexLeft;
         gameChar.lastBirdIndexRight = searchIndexRight[0] || gameChar.lastBirdIndexRight;
-
-        // if (searchIndexRight.length > 0 || searchIndexLeft.length > 0)
-        // {console.log( searchIndexLeft, "LEFT , RIGTH", searchIndexRight)}
-
 
         if (searchIndexRight.length == 2)
         {
@@ -392,9 +343,7 @@ const gameChar =
                    
                     INTER_EL.birdsGoingRight[i].vector = createVector(  gameChar.worldX - INTER_EL.birdsGoingRight[i].x,
                                                                         hitBox.center - INTER_EL.birdsGoingRight[i].y);
-                    // console.log("mag",INTER_EL.birdsGoingRight[i].vector.mag());
-                    // console.log("parts of vector", INTER_EL.birdsGoingRight[i].vector.x ,INTER_EL.birdsGoingRight[i].vector.y )
-                    
+
                     INTER_EL.birdsGoingRight[i].x -= INTER_EL.birdsGoingRight[i].vector.x;
                     INTER_EL.birdsGoingRight[i].y -= INTER_EL.birdsGoingRight[i].vector.y;
                     gameChar.speedX = constrain(gameChar.speedX += INTER_EL.birdsGoingRight[i].vector.x, -15,15);
@@ -426,12 +375,7 @@ const gameChar =
 
                         } else {isChecking = false;}
                     }
-               
                 }
-
-                // gameChar.worldX += 10;
-                // gameChar.screenX += 10;
-                // gameChar.speedX += 10;
             } 
         }
 
@@ -478,29 +422,14 @@ const gameChar =
 
                         } else {isChecking = false;}
                     }
-                   
                 }
-
             }
         }
-        // console.log("XrangeRight",searchIndexRight)
-        // isMember ? '$2.00' : 
-        // rect (-18,-70,34,60);
-        
-        // candidates:
-        // find closests birds ()
-
-        // Bird hitbox
-        // rect (-100,-30,200,35)
 
         gameChar.hammers.forEach(hammerBoxes);
-        // forEach 
         
-
         function hammerBoxes(element)
         {
-            
-
             let sinElementRotation = sin(element.rotation);
             let cosElementRotation = cos(element.rotation);
 
@@ -527,7 +456,6 @@ const gameChar =
                 top:    handleCosY - 10,
                 bottom: handleCosY + 10,
                 center: [handleSinX,handleCosY],
-
             }
         
             if (handleBox.left < headBox.left)
@@ -562,26 +490,19 @@ const gameChar =
             startIndexRight = min (gameChar.lastHammerIndexRight , maxIndexRight);
             searchIndexLeft = []  ;
             searchIndexRight = [] ;
-            // console.log("birdDifference",birdDifference)
+
             if (maxIndexLeft +1) 
             {   
-                
-                // console.log("if statement hitbox Left")
                 for (let i = startIndexLeft;;)
                 { 
-                    // console.log("hitbox while Left",  INTER_EL.birdsGoingLeft[i].x <=  birdDifference.left)
-                    // console.log("hitbox while Left",  INTER_EL.birdsGoingLeft[i].x <=  birdDifference.left)
-                    // console.log("startindexLeft",i)
                     if (INTER_EL.birdsGoingLeft[i].x <=  birdDifference.left)
                     {
                         i++; 
-                        // console.log("first if First value Left"); 
                         if (i > maxIndexLeft) { break;} 
                         trueCheck = false; //true check here means no one to the left
                     }
                     else if (trueCheck)
                     {
-                        // console.log("second if First value Left")
                         searchIndexLeft[0] =i;
                         i--; 
                         if (i < 0 ) 
@@ -589,20 +510,15 @@ const gameChar =
                         
                     }  else
                     {
-                        // console.log("getting values for SearchIndexLeft")
                         searchIndexLeft[0] = i;
                         break;
                     } 
-                    // console.log(searchIndexRight)
-                    // console.log(++timesRun)
                 }
-                // // console.log("searchLeft after fist check",searchIndexLeft)
+
                 if (searchIndexLeft.length == 1)
+                {
                     for (i = searchIndexLeft[0];;)
                     { 
-                        // console.log(searchIndexLeft)
-
-                        // console.log("hitbox while Left Second")
                         if (INTER_EL.birdsGoingLeft[i].x >=  birdDifference.right)
                         {
                             break; 
@@ -617,33 +533,18 @@ const gameChar =
                             
                         } 
                     } 
-
-
-                
-                    // console.log(gameChar.lastBirdIndexLeft);
+                }
             }
 
-
-        
-
-            
-
-            // console.log("XrangeLeft",searchIndexLeft)
-
-            
             if (maxIndexRight +1)
             {   
                 trueCheck = true;
-                // console.log("if statement hitbox Right")
-                
-                
+        
                 for (i = startIndexRight;;) 
                 { 
-                    // console.log("hitbox while Right")
                     if (INTER_EL.birdsGoingRight[i].x >=  birdDifference.right)
                     {
-                        i++; 
-                        // console.log("first if First value Left"); 
+                        i++;  
                         if (i > maxIndexRight) { break;} 
                         trueCheck = false; //true check here means no one to the right
                     }    
@@ -653,7 +554,6 @@ const gameChar =
                         i--; 
                         if (i < 0 ) 
                         {break;}
-                        
                     } 
                     else 
                     {
@@ -661,14 +561,11 @@ const gameChar =
                         
                         break;
                     }
-                    // console.log("searchIndexRight after check",searchIndexRight)
                 }
                 if (searchIndexRight.length == 1)
+                {
                     for (i = searchIndexRight[0];;)
                     { 
-                        // console.log(searchIndexRight)
-                        // console.log("hitbox while Right Second")
-                        // console.log(i)
                         if (INTER_EL.birdsGoingRight[i].x <=  birdDifference.left)
                         { break;} 
                         else  
@@ -680,31 +577,16 @@ const gameChar =
                                 break;
                             }
                         } 
-                        // console.log(searchIndexRight)
-                        // console.log(++timesRun)
-                        
-                    } 
+                    }
+                }
             }
             
 
             gameChar.lastHammerIndexLeft = searchIndexLeft[0] ||  gameChar.lastBirdIndexLeft;
             gameChar.lastHammerIndexRight = searchIndexRight[0] || gameChar.lastBirdIndexRight;
-            //    console.log(headBox, handleBox)
-           
-            // rectMode(CENTER)
-            //            noStroke();
-            //            fill(255,120);
-                    
-            //         rect ( (element.X -charLogics.scroll[0]) - sin (element.rotation) *6  , (element.Y )  + cos (element.rotation) *8, 10 , 10 );
-            //         rect ( (element.X -charLogics.scroll[0]) + sin (element.rotation) *10  , (element.Y )  - cos (element.rotation) *10, 16,16 ); 
-            
-            // variable for the last part
-            
             
             if (searchIndexRight.length == 2)
             {
-                
-                // console.log("searchIndexRight.length ==2 Right")
                 for (let i= searchIndexRight[0]; i <= searchIndexRight[1];i++)
                 {
                     if (INTER_EL.birdsGoingRight[i].y < birdDifference.bottom && 
@@ -713,11 +595,9 @@ const gameChar =
                         posssibleMatches.push(i);
                     }
                 } 
-                // console.log("possibleMathces after trimming", posssibleMatches)
+               
                 if (posssibleMatches.length > 0)
                 {
-                    
-                    // console.log("possiblematches",posssibleMatches)
                     birdDifferenceHead = 
                     {
                         left: headBox.left+ GAME_CHAR.BIRD_LIMITS[0],
@@ -752,18 +632,12 @@ const gameChar =
                             INTER_EL.birdsGoingRight[i].y > birdDifferenceHead.top)
                         {handleHit = true;}
 
-                        // console.log("handlhit", handleHit ,"headhit", headHit)
-                        // console.log("birds.x", INTER_EL.birdsGoingRight[i].x ,"birddiffleft", birdDifferenceHead.left)
-
                         if (handleHit && headHit)
                         {
                             let x = element.X - INTER_EL.birdsGoingRight[i].x;
                             let y = element.Y - INTER_EL.birdsGoingRight[i].y;
                              
                             INTER_EL.birdsGoingRight[i].vector = createVector(x,y);
-
-                            
-
                             INTER_EL.birdsGoingRight[i].x -= INTER_EL.birdsGoingRight[i].vector.x *3;
                             INTER_EL.birdsGoingRight[i].y -= INTER_EL.birdsGoingRight[i].vector.y *3;
                             element.rotationSpeed -= INTER_EL.birdsGoingRight[i].vector.mag()/8;
@@ -771,16 +645,16 @@ const gameChar =
                             element.speedY += INTER_EL.birdsGoingRight[i].vector.y/3;
                             
                             INTER_EL.birdsGoingRight[i].vector.x += 5;
-                            console.log(INTER_EL.birdsGoingRight[i].vector.mag());
                             if (INTER_EL.birdsGoingRight[i].vector.mag() > 15 )
                             {
                                 INTER_EL.birdsGoingRight[i].hit = true;
                                 INTER_EL.birdsGoingDown.push(INTER_EL.birdsGoingRight[i]);
                                 INTER_EL.birdsGoingRight.splice(i,1);
+                                gameChar.points += 3;
                                 adjustedIndex--;
                             } else
                             {
-                                //find position in going right function
+                                // MAKE SURE THE BIRS ARE IN THE CORRECT POSITION IN THE ARRAY AGAIN
                                 let isChecking = true;
                                 let checkLeft = i >= maxIndexRight ? false : true;
                                 let checkRight = i <= 0 ? false : true;
@@ -815,9 +689,6 @@ const gameChar =
                             let y = headBox.center[1] - INTER_EL.birdsGoingRight[i].y;
                              
                             INTER_EL.birdsGoingRight[i].vector = createVector(x,y);
-
-                            
-
                             INTER_EL.birdsGoingRight[i].x -= INTER_EL.birdsGoingRight[i].vector.x *3;
                             INTER_EL.birdsGoingRight[i].y -= INTER_EL.birdsGoingRight[i].vector.y *3;
                             element.rotationSpeed -= INTER_EL.birdsGoingRight[i].vector.mag()/8;
@@ -827,13 +698,14 @@ const gameChar =
                             INTER_EL.birdsGoingRight[i].vector.x += 5;
                             if (INTER_EL.birdsGoingRight[i].vector.mag() > 15 )
                             {
-                                INTER_EL.birdsGoingLeft[i].hit = true;
-                                INTER_EL.birdsGoingRight.push(INTER_EL.birdsGoingRight[i])
+                                INTER_EL.birdsGoingRight[i].hit = true;
+                                INTER_EL.birdsGoingDown.push(INTER_EL.birdsGoingRight[i])
                                 INTER_EL.birdsGoingRight.splice(i,1);
+                                gameChar.points += 3;
                                 adjustedIndex--;
                             } else
                             {
-                                //find position in going right function
+                                // MAKE SURE THE BIRS ARE IN THE CORRECT POSITION IN THE ARRAY AGAIN
                                 let isChecking = true;
                                 let checkLeft = i >= maxIndexRight ? false : true;
                                 let checkRight = i <= 0 ? false : true;
@@ -866,9 +738,6 @@ const gameChar =
                             let y = handleBox.center[1] - INTER_EL.birdsGoingRight[i].y;
                              
                             INTER_EL.birdsGoingRight[i].vector = createVector(x,y);
-
-                            
-
                             INTER_EL.birdsGoingRight[i].x -= INTER_EL.birdsGoingRight[i].vector.x *3;
                             INTER_EL.birdsGoingRight[i].y -= INTER_EL.birdsGoingRight[i].vector.y *3;
                             element.rotationSpeed -= INTER_EL.birdsGoingRight[i].vector.mag()/8;
@@ -878,13 +747,14 @@ const gameChar =
                             INTER_EL.birdsGoingRight[i].vector.x += 5;
                             if (INTER_EL.birdsGoingRight[i].vector.mag() > 15 )
                             {
-                                INTER_EL.birdsGoingLeft[i].hit = true;
-                                INTER_EL.birdsGoingRight.push(INTER_EL.birdsGoingRight[i])
+                                INTER_EL.birdsGoingRight[i].hit = true;
+                                INTER_EL.birdsGoingDown.push(INTER_EL.birdsGoingRight[i])
                                 INTER_EL.birdsGoingRight.splice(i,1);
+                                gameChar.points += 3;
                                 adjustedIndex--;
                             } else
                             {
-                                //find position in going right function
+                                // MAKE SURE THE BIRS ARE IN THE CORRECT POSITION IN THE ARRAY AGAIN
                                 let isChecking = true;
                                 let checkLeft = i >= maxIndexRight ? false : true;
                                 let checkRight = i <= 0 ? false : true;
@@ -920,9 +790,6 @@ const gameChar =
 
             if (searchIndexLeft.length == 2)
             {
-                // console.log("searchIndexLeft.length ==2 LEFT")
-                
-                // console.log("searchIndexRight.length ==2 Right")
                 posssibleMatches = []
                 adjustedIndex = 0;  
                 for (let i= searchIndexLeft[0]; i <= searchIndexLeft[1];i++)
@@ -933,11 +800,10 @@ const gameChar =
                         posssibleMatches.push(i);
                     }
                 } 
-                // console.log("possibleMathces after trimming", posssibleMatches)
+
                 if (posssibleMatches.length > 0)
                 {
-                    
-                    // console.log("possiblematches",posssibleMatches)
+
                     birdDifferenceHead = 
                     {
                         left: headBox.left+ GAME_CHAR.BIRD_LIMITS[0],
@@ -972,9 +838,6 @@ const gameChar =
                             INTER_EL.birdsGoingLeft[i].y > birdDifferenceHead.top)
                         {handleHit = true;}
 
-                        // console.log("handlhit", handleHit ,"headhit", headHit)
-                        // console.log("birds.x", INTER_EL.birdsGoingLeft[i].x ,"birddiffleft", birdDifferenceHead.left)
-
                         if (handleHit && headHit)
                         {
                             let x = element.X - INTER_EL.birdsGoingLeft[i].x;
@@ -989,20 +852,17 @@ const gameChar =
                             element.speedY += INTER_EL.birdsGoingLeft[i].vector.y/3;
                             
                             INTER_EL.birdsGoingLeft[i].vector.x -= 5;
-                            // console.log("birdsgoig Left mag",INTER_EL.birdsGoingLeft[i].vector.mag());
                             if (INTER_EL.birdsGoingLeft[i].vector.mag() > 15 )
                             {
                                 INTER_EL.birdsGoingLeft[i].hit = true;
-                                // console.log("birdsgoig Left speedX",INTER_EL.birdsGoingLeft[i].speedX);
                                 INTER_EL.birdsGoingLeft[i].speed *= -1;
-                                // console.log("birdsgoig Left speedX updated",INTER_EL.birdsGoingLeft[i].speedX);
                                 INTER_EL.birdsGoingDown.push(INTER_EL.birdsGoingLeft[i]);
                                 INTER_EL.birdsGoingLeft.splice(i,1);
+                                gameChar.points += 3;
                                 adjustedIndex--;
                             } else
                             {
-
-                                //find position in going Left function
+                                // MAKE SURE THE BIRS ARE IN THE CORRECT POSITION IN THE ARRAY AGAIN
                                 let isChecking = true;
                                 let checkRight = i >= maxIndexLeft ? false : true;
                                 let checkLeft = i <= 0 ? false : true;
@@ -1037,9 +897,6 @@ const gameChar =
                             let y = headBox.center[1] - INTER_EL.birdsGoingLeft[i].y;
                              
                             INTER_EL.birdsGoingLeft[i].vector = createVector(x,y);
-
-                            
-
                             INTER_EL.birdsGoingLeft[i].x -= INTER_EL.birdsGoingLeft[i].vector.x *3;
                             INTER_EL.birdsGoingLeft[i].y -= INTER_EL.birdsGoingLeft[i].vector.y *3;
                             element.rotationSpeed -= INTER_EL.birdsGoingLeft[i].vector.mag()/8;
@@ -1050,15 +907,14 @@ const gameChar =
                             if (INTER_EL.birdsGoingLeft[i].vector.mag() > 15 )
                             {
                                 INTER_EL.birdsGoingLeft[i].hit = true;
-                                // console.log("birdsgoig Left speedX",INTER_EL.birdsGoingLeft[i].speedX);
                                 INTER_EL.birdsGoingLeft[i].speed *= -1;
-                                // console.log("birdsgoig Left speedX updated",INTER_EL.birdsGoingLeft[i].speedX);
                                 INTER_EL.birdsGoingDown.push(INTER_EL.birdsGoingLeft[i]);
                                 INTER_EL.birdsGoingLeft.splice(i,1);
+                                gameChar.points += 3;
                                 adjustedIndex--;
                             } else
                             {
-                                //find position in going Left function
+                                // MAKE SURE THE BIRS ARE IN THE CORRECT POSITION IN THE ARRAY AGAIN
                                 let isChecking = true;
                                 let checkRight = i >= maxIndexLeft ? false : true;
                                 let checkLeft = i <= 0 ? false : true;
@@ -1091,9 +947,6 @@ const gameChar =
                             let y = handleBox.center[1] - INTER_EL.birdsGoingLeft[i].y;
                              
                             INTER_EL.birdsGoingLeft[i].vector = createVector(x,y);
-
-                            
-
                             INTER_EL.birdsGoingLeft[i].x -= INTER_EL.birdsGoingLeft[i].vector.x *3;
                             INTER_EL.birdsGoingLeft[i].y -= INTER_EL.birdsGoingLeft[i].vector.y *3;
                             element.rotationSpeed -= INTER_EL.birdsGoingLeft[i].vector.mag()/8;
@@ -1104,15 +957,14 @@ const gameChar =
                             if (INTER_EL.birdsGoingLeft[i].vector.mag() > 15 )
                             {
                                 INTER_EL.birdsGoingLeft[i].hit = true;
-                                // console.log("birdsgoig Left speedX",INTER_EL.birdsGoingLeft[i].speed);
                                 INTER_EL.birdsGoingLeft[i].speed *= -1;
-                                // console.log("birdsgoig Left speedX updated",INTER_EL.birdsGoingLeft[i].speed);
                                 INTER_EL.birdsGoingDown.push(INTER_EL.birdsGoingLeft[i]);
                                 INTER_EL.birdsGoingLeft.splice(i,1);
+                                gameChar.points += 3;
                                 adjustedIndex--;
                             } else
                             {
-                                //find position in going Left function
+                                // MAKE SURE THE BIRS ARE IN THE CORRECT POSITION IN THE ARRAY AGAIN
                                 let isChecking = true;
                                 let checkRight = i >= maxIndexLeft ? false : true;
                                 let checkLeft = i <= 0 ? false : true;
@@ -1141,15 +993,9 @@ const gameChar =
                             }
                         }
                     }
-
                 }
             }
-
-
         }
-
-
-        
     },
 }
 
@@ -1171,41 +1017,7 @@ const charLogics =
 
     },
 
-    ////////////////////////////////////////////////////////////////////////////////////////
-    //      FUNCTIONS  - DISTANCE TO ELEMENTS
-    ////////////////////////////////////////////////////////////////////////////////////////
-    distanceToHammer: function () 
-    {
-        if (gameChar.worldX  > INTER_EL.HAMMER.pos1X -10 &&
-            gameChar.worldX < INTER_EL.HAMMER.pos1X +10 &&
-            gameChar.y < INTER_EL.HAMMER.pos1Y +40 &&
-            gameChar.y > INTER_EL.HAMMER.pos1Y -10)
-            {
-                gameChar.hammerPickedUp = true;
-                gameChar.numberOfHammers ++; 
-                gameChar.hammerTextCounter += frameCount; 
-            }
-    },       
-    distanceToFlag: function ()
-    {
-        if (gameChar.worldX < INTER_EL.CANYONS[0].LEFT && !gameChar.winCondition)
-        {
-            gameChar.infoText = true;
-        } else if ( gameChar.winCondition && 
-                    gameChar.worldX > INTER_EL.FLAGPOLE_LIMIT_X[0] &&
-                    gameChar.worldX < INTER_EL.FLAGPOLE_LIMIT_X[1] &&
-                    gameChar.y < INTER_EL.FLAGPOLE_LIMIT_Y +40 &&
-                    gameChar.y > INTER_EL.FLAGPOLE_LIMIT_Y -10)
-            {
-                gameChar.hasWon = true;
-            } else {gameChar.infoText = false;}
-            
-            
-    },
-        
-    ///////////////////////////////////////////////
-    //      MOVEMENT FUNCTIONS
-    ///////////////////////////////////////////////
+
 
     ////////////////////////////////////////////////////////////////
     // AS LONG AS THE CHARACTER IS WALKING ON THE GROUND
@@ -1350,16 +1162,21 @@ const charLogics =
 
     ///////////////////////////////////////////////////////////////////
     // BOUNDARY FUNCTIONS
-    /////////////////////////////////////////////////////////    
+    //////////////////////////////////////////////////////////////////    
     testingBounds:  function ()
     {
     if (gameChar.inCanyon)   
         {
-            
-            let x = INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX.length-1;
-            let y = INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX[0];
-            let z = INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX[x];
-            gameChar.worldX = constrain (   gameChar.worldX, INTER_EL.CANYONS[y].CONSTRAIN_LEFT, INTER_EL.CANYONS[z].CONSTRAIN_RIGHT);                        
+            if (gameChar.y < GAME_PROPS.FLOOR_POS)
+            {
+                gameChar.inCanyon = false;
+            } else
+            {
+                let x = INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX.length-1;
+                let y = INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX[0];
+                let z = INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX[x];
+                gameChar.worldX = constrain (   gameChar.worldX, INTER_EL.CANYONS[y].CONSTRAIN_LEFT, INTER_EL.CANYONS[z].CONSTRAIN_RIGHT);   
+            }                     
         } else 
         {
             gameChar.worldX = constrain (gameChar.worldX, 
@@ -1453,22 +1270,18 @@ const charLogics =
                 //logics
                 gameChar.inCanyon = false; 
                 gameChar.isStanding = false;
-                gameChar.winCondition = false;
             
                 //reset
-                // gameChar.x = gameChar.startX;
                 gameChar.worldX = INTER_EL.CANYONS[ INTER_EL.CANYONS[gameChar.currentCanyonIndex].CONNECTED_INDEX[0]].CONSTRAIN_LEFT -40
                 gameChar.hammerTextCounter = 150;
                 charLogics.scroll[0] = 0;
                 gameChar.y = gameChar.startY;
                 gameChar.speedX = 0;
 
-                // gameChar.currentCanyonIndex = this.returnCurrentCanyon ();  
-                // gameChar.landingPos = gameChar.currentCanyonIndex;
+                //hammer
                 gameChar.hammerChargeCounter = 0;
                 gameChar.hammerChargeRotation = 0;
             
-
                 //keys
                 charLogics.keyPressed.space = false;
                 charLogics.keyPressed.jump = false;
@@ -1494,7 +1307,6 @@ const charLogics =
         gameChar.lives = GAME_CHAR.STARTING_LIVES;
         gameChar.hasWon = false;
         gameChar.gameOver = false;
-        gameChar.winCondition = false;
         gameChar.infoText =  true;
         gameChar.hammerChargeCounter = 0;
         gameChar.hammerChargeRotation = 0;
@@ -1508,9 +1320,7 @@ const charLogics =
 
         gameChar.currentCanyonIndex = this.returnCurrentCanyon ();  
         gameChar.landingPos = gameChar.currentCanyonIndex;
-        //key pressed
-        // keyPressed.leftArr = false;
-        // keyPressed.rightArr = false;
+
         charLogics.keyPressed.space = false;
         charLogics.keyPressed.jump = false;
     },
@@ -1521,11 +1331,9 @@ const charLogics =
         gameChar.isStanding = false;
         gameChar.landingPos = 0;
         gameChar.lives = GAME_CHAR.STARTING_LIVES;
-        gameChar.points = 18;
         gameChar.hasWon = false;
         gameChar.gameOver = false;
-        gameChar.winCondition = false;
-        gameChar.infoText =  false;
+
         
         
 
@@ -1547,14 +1355,6 @@ const charLogics =
         gameChar.currentCanyonIndex = this.returnCurrentCanyon (); 
         gameChar.landingPos = gameChar.currentCanyonIndex;
     },
-
-
-    
-
-
-
-
-
 }
 
 

@@ -1,14 +1,16 @@
-// Day time variables
-
-
+/*
+daytimeController contains two objects
+DT_CONSTS - Contains constants for time of day
+dtVars - contains variables and functions for controlling time of day
+*/
 
 const DT_CONSTS =
 {
-    MORNING_TWILLIGHT_DUR: 100,
-    DAY_DUR: 4800,
-    EVENING_TWILLIGHT_DUR: 100,
-    NIGHT_DUR: 100,
-    NIGHT_DARK_FAC: 130,
+    MORNING_TWILLIGHT_DUR: 1000,
+    DAY_DUR: 4800, //4800
+    EVENING_TWILLIGHT_DUR: 1000,
+    NIGHT_DUR: 500,
+    NIGHT_DARK_FAC: 110,
 
     setup: function ()
     {
@@ -28,14 +30,11 @@ let dtVars = //daytime variables
 {
     sunCoordinates : [],
     sunScale : 1,
-    sunColor : {},
+    sunColor : [ 40 ,120],
     daytimeCounter : 1,
     
-
-   
     B_NigthToDay : false,
     B_Day : true,
-    
      
     nightDarkVar: 0,
 
@@ -90,8 +89,6 @@ let dtVars = //daytime variables
                     if (dtVars.daytimeCounter < DT_CONSTS.MORNING_TWILLIGHT_DUR) 
                     {
                         dtVars.daytimeCounter ++;
-                        // console.log("morning")
-
                     }
                     else {dtVars.B_NigthToDay = false;dtVars.daytimeCounter = 1;dtVars.nightDarkVar = 0;} 
                 } else 
@@ -107,7 +104,6 @@ let dtVars = //daytime variables
                 sunEvening();
                 if (dtVars.daytimeCounter < DT_CONSTS.EVENING_TWILLIGHT_DUR) 
                 {
-                    // console.log("Evening twillight")
                     dtVars.daytimeCounter ++;
                 }
                 else {dtVars.B_NigthToDay = true;dtVars.daytimeCounter = 1} 
@@ -117,7 +113,6 @@ let dtVars = //daytime variables
                 
                 if (dtVars.daytimeCounter < DT_CONSTS.NIGHT_DUR) 
                 {
-                    // console.log("nightDur")
                     dtVars.daytimeCounter ++;
                 }
                 else {dtVars.B_Day = true;dtVars.daytimeCounter = 1} 
@@ -138,10 +133,7 @@ let dtVars = //daytime variables
                                         lerp (  sunMovement[Math.floor(x)][1],
                                                 sunMovement[Math.ceil(x)][1],
                                                 x % 1)]
-            
-            
-            // dtVars.sunColor = drawSoft.colorWheelFull[ Math.floor(dtVars.daytimeCounter/2.5)][120];
-            // console.log(Math.floor(dtVars.daytimeCounter/2.5))
+
             drawSun();            
     
             
@@ -157,7 +149,6 @@ let dtVars = //daytime variables
                                         lerp (  sunMovement[Math.floor(x)][1],
                                                 sunMovement[Math.ceil(x)][1],
                                                 x % 1)]
-            // dtVars.sunColor = drawSoft.colorWheelFull[40 ][120];
             drawSun();            
     
             
@@ -174,8 +165,7 @@ let dtVars = //daytime variables
                                         lerp (  sunMovement[Math.floor(x)][1],
                                                 sunMovement[Math.ceil(x)][1],
                                                 x % 1)]
-            // dtVars.sunColor = drawSoft.colorWheelFull[ Math.floor((DT_CONSTS.EVENING_TWILLIGHT_DUR-dtVars.daytimeCounter)/2.5)][120];
-            // console.log(DT_CONSTS.EVENING_TWILLIGHT_DUR-dtVars.daytimeCounter)
+
             drawSun();            
     
             

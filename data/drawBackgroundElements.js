@@ -31,10 +31,6 @@ function makeRock(name,x, y , scrollFac , scale_)
             pop();
             
         },
-        // setup: function()
-        // {
-
-        // },
     }    
     return rock;
 }
@@ -246,13 +242,13 @@ function makeDistantTree (name,x, y , scrollFac , scale_)
             strokeWeight( 2 );
             fill(BrownC);
             beginShape();
-            vertex( -6, 0    ); // -6, 4
+            vertex( -6, 0    );
             vertex( -3, -1   );
-            vertex( -3, -10  ); // -3, -10 
-            vertex( 2, -11   ); // 2, -11
+            vertex( -3, -10  );
+            vertex( 2, -11   );
             vertex( 2, -4    );
             vertex( 4, -2    );
-            vertex( 1, 1     ); //1,3
+            vertex( 1, 1     );
             vertex( -1, 0    );
             endShape();
             strokeWeight( 1 );
@@ -373,9 +369,6 @@ function makeHouse (name,x, y , scrollFac , scale_)
             fill(YellowHouseC);
             strokeWeight( 2 );
             beginShape(); 
-            
-            
-            
             vertex( -49, -29 );
             vertex( -51, 0 );
             vertex( -21, 10 );
@@ -387,10 +380,6 @@ function makeHouse (name,x, y , scrollFac , scale_)
             
             strokeWeight( 2 );
             beginShape();
-            
-            
-            
-            
             vertex( -21, -26 );
             vertex( 32, -40 );
             vertex( 39, -5 );
@@ -401,9 +390,6 @@ function makeHouse (name,x, y , scrollFac , scale_)
             fill(50);        
             strokeWeight( 2 );
             beginShape();
-            
-            
-            
             vertex( -37, -53 );
             vertex( 17, -69 );
             vertex( 34, -39 );
@@ -414,8 +400,6 @@ function makeHouse (name,x, y , scrollFac , scale_)
             fill(BrownC);
             strokeWeight( 2 );
             beginShape();
-            
-            
             vertex( -4, 2 );
             vertex( -5, -21 );
             vertex( 5, -24 );
@@ -426,25 +410,15 @@ function makeHouse (name,x, y , scrollFac , scale_)
             fill(LightSkyBlueC);
             strokeWeight( 2 );
             beginShape();
-            
-            
-            
             vertex( -42, -34 );
             vertex( -44, -16 );
             vertex( -33, -16 );
             vertex( -33, -35 );
             vertex( -42, -34 );
             endShape(); 
-            stroke(255,0,0);
-            strokeWeight(10);
-            point(0,0)
+            
             pop();
         },
     }
     return house;        
-       
- 
 }
-
-
-// 
