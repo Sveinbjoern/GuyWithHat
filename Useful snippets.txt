@@ -1,0 +1,186 @@
+   
+   
+ 
+    
+    
+ 
+ 
+       
+        
+//        
+//        
+//        ColorGradientSky = [];
+//        for (i=0;i < 200  ;i++) {  
+//            ColorGradientSky [i] = [];
+//            for (j=0;j < 100  ;j++) {
+//                ColorGradientSky [i][j] = [];
+//                for ( k= 0; k < 4; k++){
+//                     ColorGradientSky [i][j][k] = [];
+//                    ColorGradientSky[i][j][k] = lerp (ColorGradientMorningSky[i][k], 
+//                                                ColorGradientEveningSky[i][k], 
+//                                                j/100);
+//                    
+//                }
+//                console.log(ColorGradientSky[i][j]);
+//                
+//            }
+//            
+//            
+//            
+//       
+//            
+//            
+//         
+//        } 
+    
+    
+    
+    
+    
+    
+    
+    //var currentC;
+     //// LERPING COLORWHEELMAIN COLORS
+//    var colorWheelNEW = [];    
+//for ( i = 0; i < 6; i++) 
+//{   
+//        if (i ==0)       {color1 = [255,0,0];   color2 = [255,255,0];}
+//        else if (i==1)   {color1 = [255,255,0]; color2 = [0,255,0];}
+//        else if (i==2)   {color1 = [0,255,0];   color2 = [0,255,255];}
+//        else if (i==3)   {color1 = [0,255,255]; color2 = [0,0,255];}
+//        else if (i==4)   {color1 = [0,0,255];   color2 = [255,0,255];}
+//        else            {color1 = [255,0,255]; color2 = [255,0,0];}
+//        for ( j = 0; j < 40; j++) 
+//        { 
+//            colorWheelNEW[j]  = [];
+//            colorWheelNEW[j] =[ round(lerp(color1[0],color2[0],j/40)),
+//                                  round(lerp(color1[1],color2[1],j/40)),
+//                                  round(lerp(color1[2],color2[2],j/40))]
+//        }
+//    
+//} 
+//    
+//    console.log(colorWheelNEW); 
+    
+    
+    
+    
+    
+  function changeCoordinates() {
+//    x= -223;
+//    y= -100;
+//    k = [
+//        [ 201 ,  162 ],
+//        [ 263 ,  62 ],
+//        [ 165 ,  60 ],
+//        [ 269 ,  146 ],
+//        [ 210 ,  43 ],
+//        [ 238 ,  154 ],
+//        [ 195 ,  117 ],
+//        [ 295 ,  76 ],
+//        [ 180 ,  93 ],
+//        [ 250 ,  37 ],
+//        [ 229 ,  150 ],
+//        [ 189 ,  102 ],
+//        [ 306 ,  97 ],
+//        [ 195 ,  94 ],
+//        [ 174 ,  45 ],
+//        [ 236 ,  136 ],
+//        [ 190 ,  36 ],
+//        [ 281 ,  127 ],
+//        [ 181 ,  88 ],
+//        [ 172 ,  144 ],
+//        [ 237 ,  61 ],
+//        [ 189 ,  153 ],
+//        [ 240 ,  77 ],
+//        [ 152 ,  98 ],
+//        [ 229 ,  107 ],
+//        [ 201 ,  162 ]
+//    ]
+//    for (i=0;i< k.length;i++) {
+//        
+//        for (j = 0;j < 2;j++){
+//        if (j == 0) {k[i][0] += x} 
+//            else {k[i][0] += y}
+//        
+//        }
+//    
+//    }
+//    console.log(k);
+}  
+
+
+
+
+   
+//    return {
+//        getCurrentColor : function () {
+//            return currentColor;
+//        },
+//        
+//        getDaytimeSky : function () {
+//            return ColorGradientDaytimeSky;
+//        },
+//        getTwillightSky : function () {
+//            return ColorGradientTwillightSky;
+//        },
+//        getGrass : function () {
+//            return ColorGradientGrass;
+//        },
+//        
+//    }
+    
+    
+// //   make a cross at loctaion+-
+//    function op1(a, b){
+//  line(a, 0, a, height);
+//  line(0, b, width, b);
+//  }
+
+
+
+
+//// button with functionality
+//function setup() {
+//  createCanvas(400, 400);
+//  button = createButton('Draw');
+//  button.position(19, 19);
+//  button.mousePressed(drawCircle);
+//}
+//
+//function drawCircle() {
+//  circle(100, 100, 50);
+//}
+
+
+
+
+
+
+
+
+
+
+//takes a string and returns the values in an array NOT TESTED!
+function changeVertex (str) {
+let number = [];
+let numbers = [];
+let wasNumber = false;
+for (var i = 0; i < str.length; i++) {
+  if (str[i] >= '0' && str[i] <= '9'){
+    number.push(str[i]);
+    wasNumber = true;
+    } else {wasNumber = false}
+    if (!wasNumber && number != []){
+     numbers.push(number);
+     number = []
+    }
+//now you have an array of strings: strings have "" around them so are not good for copying. We change the strings to number with.
+    for (var i = 0; i < numbers.length; i++) {
+     numbers[i] = parseInt(numbers[i])
+    }
+    // for copying from the console OR return numbers (if you want to keep using it in runtime) 
+    console.log(numbers) 
+    
+    }
+}

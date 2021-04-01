@@ -1,0 +1,71 @@
+
+Keymap for Character: 
+
+left Arrow: 
+Move left
+
+Right Arrow:
+move Right
+
+up Arrow && spacebar:
+jump
+
+// Z   makeScreenshot()
+
+
+
+
+
+
+
+Keymap for DRAWSOFT
+
+Mouse dragged
+	Drawingmodes 1 to 5 Draws with a predetermined distance. Works outside the canvas
+
+	Drawmode 6  puts current color value into nearest pixel. Does not work outside the canvas
+	
+Mouse pressed
+	Drawingmodes 1 to 5 Draws a single vertex. in the current figure Works outside the canvas
+	
+	Drawmode 6 puts current color value into the pixel  at mousepointer. Does not work outside the canvas
+	
+
+	Moves caracter to point
+
+
+
+Mouse scroll wheel
+	increses and decreses distance between points when dragging in drawmode 1 to 5
+
+////////////////////////////////////////////////////////////////////////////////////////////
+key pressed:
+
+
+//  A removes all elements of a figure
+   
+//    Space takes away one point
+
+    
+//    S changes stokeweight between 1, 2, 3 , 4
+  
+    
+//    Keyys 1,2,3,4,5,6 changes the currentVertexArray and what you are drawing
+    
+//    L makes the shape make a complete loop
+    
+ 
+    
+//    F changes if the models are filled
+         
+// C Makes the colorchooser appear                     
+
+
+// D places a drawpointzero 
+
+
+//    P prints out to the console the entire 5 part figure with stokewight and code to copy and makes the point arrays with different colors
+  
+
+// M Changes the vertex mode of does nothing for pointdrawing in currentVertexArray = 6    
+  

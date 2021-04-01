@@ -1,0 +1,636 @@
+/*
+
+GAME PROJECT: DELIVERY VERSION
+
+
+Before delivery:
+DELIVERY CHOICES: Enemies and Graphics
+
+
+BUGS:
+Skybox
+colors
+Sun
+DAYTIME
+
+New stuff:
+add the canyonLines??
+Setup walkways and flyways in background
+make level setup function
+Level Design:
+Time of day depend only on position of character. NightTime sky? - redness of evening?
+
+Under work:
+Make backgroundmap
+
+implemented:
+Figuring out what behind is in 2D warped space!!!!!!!!!!
+
+Verion 0.0006  22. March. 2021
+
+For previous versions se Versions.txt
+*/
+
+
+GAME PROJECT: DELIVERY VERSION
+
+
+Before delivery:
+DELIVERY CHOICES: Enemies and Graphics
+
+IDEAS:
+
+IMPOVEMENTS:
+CODE:  COLOR REWORK
+Graphics: Colorlerping everywhere sky. 
+Red morning sun
+skyredo fix sun. Gentle halo
+Make a simple slider for time of day... Make the morning.. Make timeOfDay variable king.
+BAckground with colors for the sun: 
+Rework sun and time (satesfied with the speed. Rework)
+fixing sun color and sun code
+COLOR WHEEL FIXES: Make use of the colorWheel for all colors! + 
+    Make setup colors function for colorwheel and colorchooser + 
+    Make setup for drawing in game
+
+CODE: ENEMIES
+drawEnemies
+Random maker for in game things same functinon (clouds, birds,) The birds also move in the y direction... 
+System for making stuff be created, enemies, speach bubbles
+Birds in the background(flying behind the trees beautifully)! Reuse assets
+Changing size and y position when on the top of its run ans staying still on the dips.  seperate function:birdattack
+ENEMIES - Wolf from dog
+Another enemy if time
+
+CODE: BACKGROUND MAP
+The Background elements array: Has to be optimized.
+store a value for increasing or decreasing values of worldX..... Search first item if not the store the new first item. Aslong a as postive worldX motion. last item check if is under if so check more. 
+Store limit values of all objects in the x direction. Only run this for the last 50 values of background....
+Store the number of items in every array and make a bool to see if you will scan that line with < ten items and you do not do that....
+Make the background objects not contain the draw but only the data needed to draw.
+GET THOSE PUSH AND POP's
+make the slinging grounds work: BAckround black, fix lerped sky.
+Random setup funtion: Creates the world, resource heavy! Makes the World . Clouds, houses, trees, rocks,  2D map with distances. Make super simple tress 1 and 2 
+canyon random trail <- first part of map!! Make the Extra value for small object (i am under a tree bool)
+setup() 
+Make the objects have finished structures, vertexArrays [[x,y],[x,y],[x,y],[x,y],[x,y]], rotation strokeWeight []
+remove push pop,
+
+BUGS:
+Skybox
+colors
+Sun
+DAYTIME
+
+New stuff:
+add the canyonLines??
+
+Level Design:
+Setup walkways and flyways in background
+make level setup function
+Make backgroundmap
+Time of day depend only on position of character. NightTime sky? - redness of evening?
+
+Under work:
+
+implemented:
+Fix bird repulsion use the center points (xc-xb / yc-yb) 
+Make hammer hit works, first bird center points to calculate angel of repulssion
+
+Verion 0.0006  22. March. 2021
+
+For previous versions se Versions.txt
+*/
+
+/*
+
+
+GAME PROJECT: DELIVERY VERSION
+
+
+Before delivery:
+DELIVERY CHOICES: Enemies and Graphics
+
+IDEAS:
+
+IMPOVEMENTS:
+CODE:  COLOR REWORK
+Graphics: Colorlerping everywhere sky. 
+Red morning sun
+skyredo fix sun. Gentle halo
+Make a simple slider for time of day... Make the morning.. Make timeOfDay variable king.
+BAckground with colors for the sun: 
+Rework sun and time (satesfied with the speed. Rework)
+fixing sun color and sun code
+COLOR WHEEL FIXES: Make use of the colorWheel for all colors! + 
+    Make setup colors function for colorwheel and colorchooser + 
+    Make setup for drawing in game
+
+CODE: ENEMIES
+drawEnemies
+Random maker for in game things same functinon (clouds, birds,) The birds also move in the y direction... 
+System for making stuff be created, enemies, speach bubbles
+Birds in the background(flying behind the trees beautifully)! Reuse assets
+Changing size and y position when on the top of its run ans staying still on the dips.  seperate function:birdattack
+
+CODE: BACKGROUND MAP
+The Background elements array: Has to be optimized.
+store a value for increasing or decreasing values of worldX..... Search first item if not the store the new first item. Aslong a as postive worldX motion. last item check if is under if so check more. 
+Store limit values of all objects in the x direction. Only run this for the last 50 values of background....
+Store the number of items in every array and make a bool to see if you will scan that line with < ten items and you do not do that....
+Make the background objects not contain the draw but only the data needed to draw.
+GET THOSE PUSH AND POP's
+make the slinging grounds work: BAckround black, fix lerped sky.
+Random setup funtion: Creates the world, resource heavy! Makes the World . Clouds, houses, trees, rocks,  2D map with distances. Make super simple tress 1 and 2 
+canyon random trail <- first part of map!! Make the Extra value for small object (i am under a tree bool)
+
+
+
+
+
+BUGS:
+Skybox
+colors
+Sun
+DAYTIME
+
+Under work:
+ENEMIES
+Bird code:  Constructors for enemies. Split the level up. First screen only dog. 
+
+
+implemented:
+New version after this hell!
+dog code with waiting timers for more readable code....
+CODE: DEBUG MODE: ONLY Get to end of level with hammer.
+Hammer hitbox bug
+Life lost . Go to currentcanon.conntected canyon[0].LEFT - 20 
+Dog - clear states. 
+Countdown array timer for everything in the code!! 
+Fexed dog logic with execute timer
+MAKE A REALISTICLY ACHIEVEABLE LIST OF UPGRADES
+What you have time for with animations... animate enemies and hammer needed. Character... not really
+Fix day- night darkness bug
+
+Verion 0.0005  24. February.2021
+
+
+
+For previous versions se Versions.txt
+*/
+
+/*
+
+
+GAME PROJECT: DELIVERY VERSION
+
+
+Before delivery:
+DELIVERY CHOICES: Enemies and Graphics(sounds if time)
+
+IDEAS:
+What you have time for with animations... animate enemies and hammer needed. Character... not really
+Changing size and y position when on the top of its run ans staying still on the dips.  seperate function:birdattack
+Basic sounds. Music for morning. Music while the bird is out. Music for the night and Nigthmare!
+Jump, die fall, die 
+Screen shake(full screen transfigure.)
+A little sound(ground thump, bird scream, cute animal sound, aweful scream/terror sound)
+Birds in the background(flying behind the trees beautifully) !! Needed! 
+Full screen for drawing: 
+Draw you own enemies + default (four leg, flying, body, worst nightmaremonster) + text
+Default enemies: Cute dog (sit) walk
+    default flier (flying diving and spawning. Timed and movement based)
+    default nightmare. Huge mouth eater
+    Win and get a picture with your enemies(screenshot!)
+    pivot(center mass of your figure. Where it will turn around)
+
+IMPOVEMENTS:
+Graphics: Colorlerping everywhere sky. 
+Red morning sun
+skyredo fix sun. Gentle halo
+Make a simple slider for time of day... Make the morning.. Make timeOfDay variable king.
+BAckground with colors for the sun: 
+Rework sun and time (satesfied with the speed. Rework)
+fixing sun color and sun code
+Fix day- night darkness bug
+COLOR WHEEL FIXES: Make use of the colorWheel for all colors! + 
+    Make setup colors function for colorwheel and colorchooser + 
+    Make setup for drawing in game
+The Background elements array: 
+store a value for increasing or decreasing values of worldX..... Search first item if not the store the new first item. Aslong a as postive worldX motion. last item check if is under if so check more. 
+Store limit values of all objects in the x direction. Only run this for the last 50 values of background....
+Store the number of items in every array and make a bool to see if you will scan that line with < ten items and you do not do that....
+Make the background objects not contain the draw but only the data needed to draw.
+GET THOSE PUSH AND POP's
+drawEnemies
+DrawCanyonLines Finish and use vectors.
+Random maker for in game things same functinon (clouds, birds,) The birds also move in the y direction... 
+make the slinging grounds work: BAckround black, fix lerped sky.
+DEBUG MODE: Choose where to start( have hammer, have enough points, have cute enemies, have flying enemies, have nightmare, defeated nightmare(enough points))
+System for making stuff be created, enemies, speach bubbles
+
+Random setup funtion: Creates the world, resource heavy! Makes the World . Clouds, houses, trees, rocks,  2D map with distances. Make super simple tress 1 and 2 
+canyon random trail <- first part of map!! Make the Extra value for small object (i am under a tree bool)
+
+DECICIONS:
+How will the points work? What are the win condition? Defeat nigthmare? -> control the sun. Goes up to one third Draw cute animal, goes to two thirds with flying animal, 
+    Goes down after meeting the nightmare, goes back up to middle after defeating the nightmare(stuck in middle)
+
+
+
+Under work:
+
+
+
+implemented:
+Make charging the hammer work: Make a charge range... Number of frames. Make an array.. Rising from 0 to 1
+MAke two arrays?  both controlled by the same hammerChargeCounter ONe that gives the rotation speed (from beginRotatiohammer to fullRotationHammer)
+The other from (hammerTrowMin to hammerTrowMax)
+DOG made
+
+Verion 0.0001  21. February.2021
+
+
+
+For previous versions se Versions.txt
+*/
+
+
+/*
+
+
+GAME PROJECT: DELIVERY VERSION
+
+Longterm: Town
+
+
+
+
+
+Before delivery:
+DELIVERY CHOICES: Enemies and Graphics(sounds)
+
+IDEAS:
+What you have time for with animations... animate enemies and hammer needed. Character... not really
+Changing size and y position when on the top of its run ans staying still on the dips.  seperate function:birdattack
+Basic sounds. Music for morning. Music while the bird is out. Music for the night and Nigthmare!
+Jump, die fall, die 
+Screen shake(full screen transfigure.)
+A little sound(ground thump, bird scream, cute animal sound, aweful scream/terror sound)
+Birds in the background(flying behind the trees beautifully) !! Needed! 
+Full screen for drawing: 
+Draw you own enemies + default (four leg, flying, body, worst nightmaremonster) + text
+Default enemies: Cute dog (sit) walk
+    default flier (flying diving and spawning. Timed and movement based)
+    default nightmare. Huge mouth eater
+    Win and get a picture with your enemies(screenshot!)
+    pivot(center mass of your figure. Where it will turn around)
+
+IMPOVEMENTS:
+Graphics: Colorlerping everywhere sky. 
+Red morning sun
+skyredo fix sun. Gentle halo
+Make a simple slider for time of day... Make the morning.. Make timeOfDay variable king.
+BAckground with colors for the sun: 
+Rework sun and time (satesfied with the speed. Rework)
+fixing sun color and sun code
+Fix day- night darkness bug
+COLOR WHEEL FIXES: Make use of the colorWheel for all colors! + 
+    Make setup colors function for colorwheel and colorchooser + 
+    Make setup for drawing in game
+The Background elements array: 
+store a value for increasing or decreasing values of worldX..... Search first item if not the store the new first item. Aslong a as postive worldX motion. last item check if is under if so check more. 
+Store limit values of all objects in the x direction. Only run this for the last 50 values of background....
+Store the number of items in every array and make a bool to see if you will scan that line with < ten items and you do not do that....
+Make the background objects not contain the draw but only the data needed to draw.
+GET THOSE PUSH AND POP's
+drawEnemies
+DrawCanyonLines Finish and use vectors.
+
+DECICIONS:
+How will the points work? What are the win condition? Defeat nigthmare? -> control the sun. Goes up to one third Draw cute animal, goes to two thirds with flying animal, 
+    Goes down after meeting the nightmare, goes back up to middle after defeating the nightmare(stuck in middle)
+
+
+
+Under work:
+Random maker for in game things same functinon (clouds, birds,) The birds also move in the y direction... 
+make the slinging grounds work: BAckround black, fix lerped sky.
+DEBUG MODE: Choose where to start( have hammer, have enough points, have cute enemies, have flying enemies, have nightmare, defeated nightmare(enough points))
+System for making stuff be created, enemies, speach bubbles
+
+Random setup funtion: Creates the world, resource heavy! Makes the World . Clouds, houses, trees, rocks,  2D map with distances. Make super simple tress 1 and 2 
+canyon random trail <- first part of map!! Make the Extra value for small object (i am under a tree bool)
+Hammer hand position for every position
+jump figure with hammer
+
+implemented:
+Hammer trow
+ArrayMaker with ease!!
+Walking. standing. with hammer
+Hammer throw! started
+DrawCanyonLines Started
+drawFlag
+Make hammer appear in hand
+Do something about the global variables in drawSoft.js Make an object
+Do something about the global variables in colors.js ?  is in a function...
+Seperate logic and drawing of character (Respawn bug)
+DEBUG STARTED
+Rework CANYONS
+More elegant soloution for canyons, without the extra canyon
+More elegant solution for the double(and more) canyons. They should be predefined as connected
+made the TEXT_EL
+Cleaned up variables and functions into a much more limited space
+Put KeyCodes insted of checking for upper and lowercase
+Cleaned up screenshot maker
+Fixed global variable in drawsoft
+Make namespace for all variable and functions
+cleanup - Comments - mostly done
+Naming convention: Variables and functions in lowercase and cammelcase named objects 
+constants(Not to be changed) in uppercase named ojects
+
+Verion 0.00001  31. Januray.2021
+
+
+
+For previous versions se Versions.txt
+*/
+
+
+/*
+
+
+GAME PROJECT: 
+
+Longterm: Town
+More elegant soloution for canyons, without the extra canyon
+More elegant solution for the double(and more) canyons. They should be predefined as connected
+
+Under work:
+Make hammer appear in hand
+Hammer trow
+Draw you own enemies + default (four leg, flying, monster) + text
+
+COLOR WHEEL FIXES: Make use of the colorWheel for all colors! + 
+    Make setup colors function for colorwheel and colorchooser + 
+Do something about the global variables in drawSoft.js
+Do something about the global variables in colors.js
+fixing sun color and sun code
+make most items mirrorable
+Fix day- night darkness bug
+Seperate logic and drawing of character (Respawn bug)
+
+
+implemented:
+Make Flagpole(at the start)
+cleaned up levelController
+Make the game start with day!
+Make health UI
+Add a flagpole [1 mark]
+Add lives [2 marks]
+Tidy your code [3 marks]
+INTRO TEXT - When close to flagpole button I + startup;
+Flagpole checking function [1 mark]
+"Game over" and "Level complete" text [2 marks]
+
+
+Verion 0.000005  19. Januray.2021
+
+
+
+For previous versions se Versions.txt
+*/
+
+
+
+/*
+
+
+
+
+GAME PROJECT: 
+
+FOR GRADED WORK:
+
+
+Dear grader!
+
+Here listed are all the varialbes you are looking for:
+
+Since TREES_X are in the constant object BACKG_EL in levelController.js I made the with 
+uppcase letters. The same is the case for the other variables. Since they are in a constant 
+object they are written with uppercase letters!
+TREES_X and TREES_Y are initialized in the setup function bellow.
+The code for writing the trees drawTrees() is in backgroundElements.js
+The trees are drawn in draw() together with all the objets in BACKG_EL.BACKG_EL array of objects.
+
+
+MOUNTAIN is a single object that is initialized in setup() bellow.
+It is a part of the object DIST_BACKG_EL that stores all distant background elements from levelController.js
+The code for drawMountain is in drawDistantBackgroundElements.js
+Mountain is drawn in draw with the drawMountain function.
+
+
+CLOUDS_X is an array of cloud x positions that is initialized as a part of the constant object DIST_BACKG_EL from levelController.js 
+It is together with other cloud variables like CLOUDS_Y CLOUDS_SIZE_X and CLOUD_SCROLL
+The code to draw the clouds is in drawDistantBackgroundElements.js
+
+
+CANYONS_X is an array of canyon positions that is initialized  as a part of constant object INTER_EL from levelController.js
+The Code for use of canyons is in the levelController.js  while the code to draw si in the drawInteractableElements.js
+
+
+HAMMER is declared and initialized BEFORE setup bellow as a global object.
+This is my pickable object!
+The logic of picking up the hammer is in levelController.js while the code to draw it is in the drawObjects.js
+
+
+
+Under work:
+
+
+Verion 0.000001  25. Desember.2020
+Fixed tide of day 26.12.2020
+Fixed sun movement 26.12.2020
+Stared fixing sun color 
+
+NB!! If you are searching for the variables like trees_x, clouds_x mountains_x and so on, They are in uppercase letters because they are part of constant objects.
+
+
+For previous versions se Versions.txt
+*/
+
+
+
+
+
+
+
+/*
+
+
+
+
+GAME PROJECT: WORKING TITTLE THE TOWN
+
+LONG TERM GOALS:
+Start the TOWN
+Add throwing hammer
+Enemies
+ONLY draw the items that are on the screen
+
+To be implemented:
+12.Fix daytime Nighttime
+18. Make hammer appear in hand
+19. Make hammer throwable/ or rocks maybe!!
+20. Make the sun move
+21. Make day and night work again
+22. make a sign and text YOU CANT GO TO TOWN!
+25. More elegant soloution for canyons, without the extra canyon(and does not break)
+26. More elegant solution for the double(and more) canyons. They should be predefined as connected
+27. Make use of the colorWheel for all colors! + Make setup colors function for colorwheel and colorchooser
+
+Under work:
+1. Inspect the code. [0 marks] Clean it up!
+24. Do something about the global variables in drawSoft.js
+11. Make sure you follow the instructions carefully and use arrays 
+and objects where you are told to.
+8. And now for the canyons and collectables [1 mark] more cayons
+
+
+Verion 0.0000005 (5 * 10 ^-7) 22. Desmeber.2020
+implemented:
+Modify the code so that each three is drawn using the corresponding 
+x position from trees_x
+29. Use an array trees_x to set the objects like you are told
+4. Draw the trees [2 marks]
+3. Make an array of tree positions [1 marks] 22.12.2020
+28. containing trees_x threes_y scale  22.12.2020
+5. Make an array of clouds [1 marks] at least three 23.12.2020
+6. Draw the clouds [2 marks] 23.12.2020
+7. And now for the mountains [1 mark] 23.12.2020
+Fixed colorwheel 
+
+For previous versions se Versions.txt
+
+
+
+*/
+
+
+
+/*
+
+
+
+GAME PROJECT: WORKING TITTLE THE TOWN
+
+LONG TERM GOALS:
+Start the TOWN
+Add throwing hammer
+Enemies
+ONLY draw the items that are on the screen
+
+
+
+Verion 0.0000001 (1 * 10 ^-7) desmeber.2020
+Scrolling - parallax!!
+
+Change INTERACTABLE to INTER_EL 06.12.2020
+Fixed old bugs in drawsoft and screenshotmaker
+23. make the game freeze in drawModeOn 06.12.2020
+26. Make factory rocks
+30. Make factory everything!
+27. Make an array of three objects with the factory method 
+9. Implement scrolling [2 marks]
+16. scrolling background with parallax
+10. make more stuff into the scrollable area
+
+
+*/
+
+
+
+
+
+
+
+/*
+
+
+
+
+GAME PROJECT: WORKING TITTLE THE TOWN
+
+LONG TERM GOALS:
+Start the TOWN
+Add throwing hammer
+Scrolling - parallax
+Enemies
+
+Verion 0.00000001 (1 * 10 ^-8) 6.12.2020
+Seperate the drawsoft completly, mouseClicked and all.
+Rename from mainC to gameChar
+fix hammer text
+2. Add your game character to the sketch. [0 marks] Done! 
+Rename mainCPos to cameChar and put in player object
+17. Make objets out of the global variables
+14. Make all figures senter around zero zero with changeNumber.js 04.12.2020
+13. Scrolling forground objects 5.12.2020
+23. Make an array of canyon objects and make them work 06.12.2020
+
+
+
+/*
+
+
+
+
+GAME PROJECT: THE TOWN
+
+
+
+Verion 1 * 10 ^-9 13.11.2020
+Sky and sun Colors
+Walking with correct animation
+jumping and falling into canyon 
+points for jumping over the canyon
+reset when falling into canyon
+Pickup hammer code
+Text for hammer and points
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+GAME PROJECT: THE TOWN
+
+
+
+Verion 1 * 10 ^-10 before 13.11.2020 
+
+
+Scenery! Trees canyon, hammer mountain and clouds
+DrawSoft: Drawing program for the game
+
+
+
+*/
+
